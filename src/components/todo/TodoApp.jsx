@@ -1,71 +1,45 @@
 import React, { Component } from 'react'
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+import withNavigation from './WithNavigation'
+import withParams from './withParams';
+import AuthenticatedRoute from './AuthenticatedRoutes';
+import LoginComponent from './LoginComponent';
+import ListTodosComponent from './ListTodosComponent';
+import HeaderComponent from './HeaderComponent';
+import FooterComponent from './FooterComponent';
+import WelcomeComponent from './WelcomeComponent';
+import LogoutComponent from './LogoutComponent';
+
+
 
 class TodoApp extends Component {
     render() {
+        const HeaderComponentWithNavigation = withNavigation(HeaderComponent)
+        const LoginComponentWithNavigation = withNavigation(LoginComponent)
+        const WelcomeComponentWithParams = withParams(WelcomeComponent)
         return (
-            <div className='TodoApp'>
-                <LoginComponent/>
+            <div className='TodoApp container'>
+                <Router>
+                    <HeaderComponentWithNavigation/>
+                    <Routes>
+                        <Route path="/" exact element={<LoginComponentWithNavigation/>}/>
+                        <Route path="/login" element={<LoginComponentWithNavigation/>}/>
+                        <Route path="/welcome/:name" element={<AuthenticatedRoute><WelcomeComponentWithParams/></AuthenticatedRoute>}/>
+                        <Route path="/todos" element={<AuthenticatedRoute><ListTodosComponent/></AuthenticatedRoute>}/>
+                        <Route path="/logout" element={<AuthenticatedRoute><LogoutComponent/></AuthenticatedRoute>}/>
+                        <Route path="/*" element={<ErrorComponent/>}/>
+                    </Routes>
+                    <FooterComponent/>
+                </Router>
             </div>
         )
     }
 }
 
-class LoginComponent extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            username: "in28minutes",
-            password: "",
-            hasLoginFailed: false,
-            showSuccessMessage: false
-        }
-        this.handleChange = this.handleChange.bind(this)
-        this.loginClicked = this.loginClicked.bind(this)
-    }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]
-                :event.target.value})
-    }
-
-    loginClicked(event) {
-        if (this.state.username === 'in28minutes' && this.state.password==='dummy') {
-            this.setState({showSuccessMessage:true})
-            this.setState({hasLoginFailed:false})
-        }
-        else {
-            this.setState({showSuccessMessage:false})
-            this.setState({hasLoginFailed:true})
-        }
-    }
-
-    render() {
-        return (
-            <>
-            <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}/>
-            <ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>
-            User Name: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-            Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-            <button onClick={this.loginClicked}>Login</button>
-            </>
-            
-        )
-    }
+function ErrorComponent() {
+    return <div>An Error Occured.</div>
 }
 
-function ShowInvalidCredentials(props) {
-    if (props.hasLoginFailed) {
-        return <div>Invalid Credentials</div>
-    } 
-    return null
-}
-
-function ShowLoginSuccessMessage(props) {
-    if (props.showSuccessMessage) {
-        return <div>Login Successful</div> 
-    }
-    return null
-}
 
 export default TodoApp

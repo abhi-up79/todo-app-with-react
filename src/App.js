@@ -1,8 +1,8 @@
-import './App.css';
 import React, {Component} from 'react';
 
-import Counter from './components/counter/counter';
 import TodoApp from './components/todo/TodoApp'
+import './App.css';
+import './bootstrap.css';
 
 class App extends Component {
   render() {
