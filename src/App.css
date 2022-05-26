@@ -2,10 +2,10 @@
   text-align: center;
 }
 
-.footer{
+.footer {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 90%;
   height: 40px;
   background-color: #222222;
 }
