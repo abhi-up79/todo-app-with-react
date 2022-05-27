@@ -1,11 +1,12 @@
 import axios from "axios";
+import { API_URL } from "../../Constants";
 
 class HelloWorldService {
   executeHelloWorldService() {
-    return axios.get("http://localhost:8080/hello-world");
+    return axios.get(`${API_URL}/hello-world`);
   }
   executeHelloWorldBeanService() {
-    return axios.get("http://localhost:8080/hello-world-bean");
+    return axios.get(`${API_URL}/hello-world-bean`);
   }
   executeHelloWorldPathVariableService(name) {
     // let username = "in28minutes";
@@ -14,7 +15,7 @@ class HelloWorldService {
     // let basicAuthHeader = "Basic " + window.btoa(username + ":" + password);
 
     return axios.get(
-      `http://localhost:8080/hello-world/path-variable/${name}`
+      `${API_URL}/hello-world/path-variable/${name}`
       // ,
       // {
       //   headers: {

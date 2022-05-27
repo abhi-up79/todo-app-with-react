@@ -57,8 +57,8 @@ class ListTodosComponent extends Component {
             <thead>
               <tr>
                 <th>Description</th>
-                <th>Is Completed</th>
                 <th>Target date</th>
+                <th>Is Completed</th>
                 <th>Update</th>
                 <th>Delete</th>
               </tr>
@@ -67,8 +67,8 @@ class ListTodosComponent extends Component {
               {this.state.todos.map((todo) => (
                 <tr key={todo.id}>
                   <td>{todo.description}</td>
-                  <td>{todo.done.toString()}</td>
                   <td>{moment(todo.targetDate).format("YYYY-MM-DD")}</td>
+                  <td>{todo.done.toString()}</td>
                   <td>
                     <button
                       className="btn btn-success"
