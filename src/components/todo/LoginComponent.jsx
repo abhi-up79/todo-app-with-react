@@ -21,28 +21,30 @@ class LoginComponent extends Component {
   }
 
   loginClicked(event) {
-    // if (
-    //   this.state.username === "in28minutes" &&
-    //   this.state.password === "dummy"
-    // ) {
-    //   AuthService.registerSuccessfulLogin(
-    //     this.state.username,
-    //     this.state.password
-    //   );
-    //   this.props.navigate(`/welcome/${this.state.username}`);
-    // } else {
-    //   this.setState({ showSuccessMessage: false });
-    //   this.setState({ hasLoginFailed: true });
-    // }
+    // AuthService.executeBasicAuthenticationService(
+    //   this.state.username,
+    //   this.state.password
+    // )
+    //   .then(() => {
+    //     AuthService.registerSuccessfulLogin(
+    //       this.state.username,
+    //       this.state.password
+    //     );
+    //     this.props.navigate(`/welcome/${this.state.username}`);
+    //   })
+    //   .catch(() => {
+    //     this.setState({ showSuccessMessage: false });
+    //     this.setState({ hasLoginFailed: true });
+    //   });
 
-    AuthService.executeBasicAuthenticationService(
+    AuthService.executeJwtAuthenticationService(
       this.state.username,
       this.state.password
     )
-      .then(() => {
-        AuthService.registerSuccessfulLogin(
+      .then((response) => {
+        AuthService.registerSuccessfulLoginforJwt(
           this.state.username,
-          this.state.password
+          response.data.token
         );
         this.props.navigate(`/welcome/${this.state.username}`);
       })

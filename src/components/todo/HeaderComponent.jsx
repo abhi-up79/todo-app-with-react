@@ -11,14 +11,20 @@ class HeaderComponent extends Component {
       <header>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
           <div>
-            <Link className="navbar-brand" to="/welcome/in28minutes">
+            <Link
+              className="navbar-brand"
+              to={`/welcome/${AuthService.getLoggedInUserName()}`}
+            >
               in28minutes
             </Link>
           </div>
           <ul className="navbar-nav">
             {isUserLoggedIn && (
               <li>
-                <Link className="nav-link" to="/welcome/in28minutes">
+                <Link
+                  className="nav-link"
+                  to={`/welcome/${AuthService.getLoggedInUserName()}`}
+                >
                   Home
                 </Link>
               </li>
